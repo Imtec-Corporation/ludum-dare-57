@@ -29,6 +29,7 @@ jobs:
         run: |
           mkdir -v -p ~/.config/
           mv /root/.config/godot ~/.config/godot
+          godot --headless --download-export-templates
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
@@ -38,7 +39,7 @@ jobs:
       - name: Build linux config
         run: |
           mkdir -v -p build/linux
-          godot --headless -v --export-release "Linux" build/linux/${EXPORT_NAME}-linux.x86_64 || true
+          godot --headless -v --export-release "Linux" build/linux/${EXPORT_NAME}-linux.x86_64
 
       # Step 5: Publish the build to itch.io
       - name: Publish to itch.io
@@ -63,6 +64,7 @@ jobs:
         run: |
           mkdir -v -p ~/.config/
           mv /root/.config/godot ~/.config/godot
+          godot --headless --download-export-templates
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
@@ -72,7 +74,7 @@ jobs:
       - name: Build Windows config
         run: |
           mkdir -v -p build/windows
-          godot --headless -v --export-release "Windows" build/windows/${EXPORT_NAME}-win.exe || true
+          godot --headless -v --export-release "Windows" build/windows/${EXPORT_NAME}-win.exe
 
       # Step 5: Publish the build to itch.io
       - name: Publish to itch.io
@@ -97,6 +99,7 @@ jobs:
         run: |
           mkdir -v -p ~/.config/
           mv /root/.config/godot ~/.config/godot
+          godot --headless --download-export-templates
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
@@ -106,7 +109,7 @@ jobs:
       - name: Build MacOS config
         run: |
           mkdir -v -p build/mac
-          godot --headless -v --export-release "mac" build/mac/${EXPORT_NAME}-mac.zip || true
+          godot --headless -v --export-release "mac" build/mac/${EXPORT_NAME}-mac.zip
 
       # Step 5: Publish the build to itch.io
       - name: Publish to itch.io
