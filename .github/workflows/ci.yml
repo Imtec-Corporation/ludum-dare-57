@@ -14,11 +14,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Godot
+      # Step 2: Set up Godot using the 'godot-ci' action
       - name: Set up Godot
-        uses: firebelley/setup-godot@v1.0.3
+        uses: natej/godot-ci@v1.2
         with:
-          version: '4.4'
+          godot-version: '4.4'  # Specify the Godot version you are using (e.g., 4.0)
 
       # Step 3: Install dependencies (if necessary)
       # Add any steps here to install additional dependencies (e.g., Godot plugins, etc.)
