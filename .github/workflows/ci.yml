@@ -7,9 +7,11 @@ on:
 
 env:
   GODOT_VERSION: 4.4.1
+  EXPORT_NAME: ludum-dare-57
 
 jobs:
-  build:
+  linux-build:
+    name: Linux Build
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
     container:
       image: barichello/godot-ci:4.4.1
@@ -28,3 +30,7 @@ jobs:
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
         run: godot --headless -s addons/gut/gut_cmdln.gd -glog=1 -gexit
+
+      # Setp 4: Build Linux export
+      - name: Build linux config
+        run: godot --headless -v --export-release "Linux/X11" build/linux/${EXPORT_NAME}-linux.x86_64
