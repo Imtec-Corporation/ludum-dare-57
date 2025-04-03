@@ -8,6 +8,8 @@ on:
 env:
   GODOT_VERSION: 4.4.1
   EXPORT_NAME: ludum-dare-57
+  ITCH_IO_GAME: imtec/ludum-dare-57
+  BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
 
 jobs:
   linux-build:
@@ -36,3 +38,8 @@ jobs:
         run: |
           mkdir -v -p build/linux
           godot --headless -v --export-release "Linux" build/linux/${EXPORT_NAME}-linux.x86_64 || true
+
+      # Step 5: Publish the build to itch.io
+      - name: Publish to itch.io
+        run: |
+          butler push build/linux/${EXPORT_NAME}-linux.x86_64 ${ITCH_IO_GAME}:linux
