@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
     container:
-      image: barichello/godot-ci:4.4-stable
+      image: barichello/godot-ci:4.4.1
 
     steps:
       # Step 1: Checkout the repository
