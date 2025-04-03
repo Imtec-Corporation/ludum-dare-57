@@ -1,5 +1,6 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1743680806
+::res://::1743689552
+export_presets.cfg::TextFile/TextFile::-1::1743689273::0::1::::<><><>0<>0<><>::
 icon.svg::CompressedTexture2D/CompressedTexture2D::8881468967168719433::1743679797::1743679801::1::::<><><>0<>0<>32929cd8189823c61ef5ce91c954b697<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 README.md::TextFile/TextFile::-1::1743680395::0::1::::<><><>0<>0<><>::
 ::res://addons/::1743680760
@@ -122,5 +123,11 @@ green.png::CompressedTexture2D/CompressedTexture2D::3896279560051998512::1743680
 red.png::CompressedTexture2D/CompressedTexture2D::2443263267725858415::1743680761::1743680762::1::::<><><>0<>0<>de7da5cb5e10aa908889f3b4d7d249c4<>res://.godot/imported/red.png-47a557c3922e800f76686bc1a4ad0c3c.ctex::
 Script.svg::CompressedTexture2D/CompressedTexture2D::4817060143842260657::1743680761::1743680762::1::::<><><>0<>0<>05e1c91ae4a3e5ff80a257ec9b9f659c<>res://.godot/imported/Script.svg-34c66aae9c985e3e0470426acbbcda04.ctex::
 yellow.png::CompressedTexture2D/CompressedTexture2D::1043265824178416429::1743680761::1743680762::1::::<><><>0<>0<>1f29ae3064a14df675b46036c620de5d<>res://.godot/imported/yellow.png-b3cf3d463958a169d909273d3d742052.ctex::
-::res://scenes/::1743680132
-title.tscn::PackedScene::5583434060558708741::1743680132::0::1::::<><><>0<>0<><>::
+::res://build/::1743689552
+::res://build/linux/::1743689552
+::res://scenes/::1743686273
+title.tscn::PackedScene/PackedScene::5583434060558708741::1743686273::0::1::::<><><>0<>0<><>::
+::res://test/::1743681020
+::res://test/integration/::1743681020
+::res://test/unit/::1743681663
+test_simple.gd::GDScript/GDScript::2571291510622846744::1743681663::0::1::::<>GutTest<><>0<>0<><>::
