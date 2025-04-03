@@ -8,24 +8,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+    container:
+      image: barichello/godot-ci:latest
 
     steps:
       # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Godot with Barrichello CI
-      - name: Set up Godot with Barrichello CI
-        uses: barrichello-ci/setup-godot@v1
-        with:
-          version: '4.0'  # Specify the version of Godot you are using
-
-       # Step 3: Create an alias for Godot executable (correct path)
+       # Step 2: Create an alias for Godot executable (correct path)
       - name: Create alias for Godot
         run: |
           sudo ln -s ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/bin/godot
           sudo chmod +x ~/.local/bin/godot
 
-      # Step 4: Run the GUT tests in headless mode
+      # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
         run: godot --headless -s addons/gut/gut_cmdln.gd -glog=1 -gexit
