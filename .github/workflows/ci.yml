@@ -6,7 +6,7 @@ on:
       - master  # Trigger on push to the master branch
 
 env:
-  GODOT_VERSION: 4.4.1
+  GODOT_VERSION: 4.4
 
 jobs:
   test:
