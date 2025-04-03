@@ -5,6 +5,9 @@ on:
     branches:
       - master  # Trigger on push to the master branch
 
+env:
+  GODOT_VERSION: 4.4.1
+
 jobs:
   test:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
