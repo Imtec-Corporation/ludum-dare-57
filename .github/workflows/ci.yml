@@ -29,7 +29,7 @@ jobs:
         run: |
           mkdir -v -p ~/.config/
           mv /root/.config/godot ~/.config/godot
-          godot --headless --download-export-templates
+          godot --headless --download-export-templates --quit
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
@@ -49,7 +49,7 @@ jobs:
           butler push build/linux ${ITCH_IO_GAME}:linux
 
   windows-build:
-    name: Bundows Build
+    name: Windows Build
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
     container:
       image: barichello/godot-ci:4.4.1
@@ -64,7 +64,7 @@ jobs:
         run: |
           mkdir -v -p ~/.config/
           mv /root/.config/godot ~/.config/godot
-          godot --headless --download-export-templates
+          godot --headless --download-export-templates --quit
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
@@ -99,7 +99,7 @@ jobs:
         run: |
           mkdir -v -p ~/.config/
           mv /root/.config/godot ~/.config/godot
-          godot --headless --download-export-templates
+          godot --headless --download-export-templates --quit
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
