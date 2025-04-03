@@ -6,13 +6,13 @@ on:
       - master  # Trigger on push to the master branch
 
 env:
-  GODOT_VERSION: 4.4
+  GODOT_VERSION: 4.3
 
 jobs:
   test:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
     container:
-      image: barichello/godot-ci:4.4.1
+      image: barichello/godot-ci:4.3
 
     steps:
       # Step 1: Checkout the repository
@@ -22,6 +22,9 @@ jobs:
        # Step 2: Create an alias for Godot executable (correct path)
       - name: Create alias for Godot
         run: |
+          mkdir -v -p ~/.local/share/godot/export_templates/
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
           mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
 
       # Step 3: Run the GUT tests in headless mode
