@@ -68,10 +68,10 @@ jobs:
       - name: Run GUT tests
         run: godot --headless -s addons/gut/gut_cmdln.gd -glog=1 -gexit
 
-      # Setp 4: Build Linux export
-      - name: Build linux config
+      # Setp 4: Build Windows export
+      - name: Build Windows config
         run: |
-          mkdir -v -p build/linux
+          mkdir -v -p build/windows
           godot --headless -v --export-release "Windows" build/windows/${EXPORT_NAME}-win.exe || true
 
       # Step 5: Publish the build to itch.io
@@ -102,10 +102,10 @@ jobs:
       - name: Run GUT tests
         run: godot --headless -s addons/gut/gut_cmdln.gd -glog=1 -gexit
 
-      # Setp 4: Build Linux export
-      - name: Build linux config
+      # Setp 4: Build MacOS export
+      - name: Build MacOS config
         run: |
-          mkdir -v -p build/linux
+          mkdir -v -p build/mac
           godot --headless -v --export-release "mac" build/mac/${EXPORT_NAME}-mac.zip || true
 
       # Step 5: Publish the build to itch.io
