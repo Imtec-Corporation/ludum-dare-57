@@ -42,4 +42,6 @@ jobs:
       # Step 5: Publish the build to itch.io
       - name: Publish to itch.io
         run: |
-          butler push build/linux/${EXPORT_NAME}-linux.x86_64 ${ITCH_IO_GAME}:linux
+          butler -v
+          butler login
+          butler push build/linux ${ITCH_IO_GAME}:linux
