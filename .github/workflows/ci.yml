@@ -14,15 +14,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up Godot using the 'godot-ci' action
-      - name: Set up Godot
-        uses: natej/godot-ci@v1.2
+      # Step 2: Set up Godot with Barrichello CI
+      - name: Set up Godot with Barrichello CI
+        uses: barrichello-ci/setup-godot@v1
         with:
-          godot-version: '4.4'  # Specify the Godot version you are using (e.g., 4.0)
+          version: '4.0'  # Specify the version of Godot you are using
 
-      # Step 3: Install dependencies (if necessary)
-      # Add any steps here to install additional dependencies (e.g., Godot plugins, etc.)
-      
+       # Step 3: Create an alias for Godot executable (correct path)
+      - name: Create alias for Godot
+        run: |
+          sudo ln -s ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/bin/godot
+          sudo chmod +x ~/.local/bin/godot
+
       # Step 4: Run the GUT tests in headless mode
       - name: Run GUT tests
         run: godot --headless -s addons/gut/gut_cmdln.gd -glog=1 -gexit
