@@ -9,7 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
     container:
-      image: barichello/godot-ci:latest
+      image: barichello/godot-ci:4.4-stable
 
     steps:
       # Step 1: Checkout the repository
@@ -19,8 +19,7 @@ jobs:
        # Step 2: Create an alias for Godot executable (correct path)
       - name: Create alias for Godot
         run: |
-          sudo ln -s ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable.mono ~/.local/bin/godot
-          sudo chmod +x ~/.local/bin/godot
+          mv /root/.local/share/godot/export_templates/${GODOT_VERSION}.stable ~/.local/share/godot/export_templates/${GODOT_VERSION}.stable
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
