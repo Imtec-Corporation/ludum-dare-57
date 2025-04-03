@@ -1,4 +1,5 @@
-name: GUT Test Suite
+name: Build pipeline
+# This is a GitHub Actions workflow file for building and publishing a Godot project to itch.io.
 
 on:
   push:
@@ -45,3 +46,71 @@ jobs:
           butler -v
           butler login
           butler push build/linux ${ITCH_IO_GAME}:linux
+
+  windows-build:
+    name: Bundows Build
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+    container:
+      image: barichello/godot-ci:4.4.1
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+       # Step 2: Create an alias for Godot executable (correct path)
+      - name: Copy root config
+        run: |
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
+
+      # Step 3: Run the GUT tests in headless mode
+      - name: Run GUT tests
+        run: godot --headless -s addons/gut/gut_cmdln.gd -glog=1 -gexit
+
+      # Setp 4: Build Linux export
+      - name: Build linux config
+        run: |
+          mkdir -v -p build/linux
+          godot --headless -v --export-release "Windows" build/windows/${EXPORT_NAME}-win.exe || true
+
+      # Step 5: Publish the build to itch.io
+      - name: Publish to itch.io
+        run: |
+          butler -v
+          butler login
+          butler push build/windows ${ITCH_IO_GAME}:win
+
+  mac-build:
+    name: MacOS Build
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+    container:
+      image: barichello/godot-ci:4.4.1
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+       # Step 2: Create an alias for Godot executable (correct path)
+      - name: Copy root config
+        run: |
+          mkdir -v -p ~/.config/
+          mv /root/.config/godot ~/.config/godot
+
+      # Step 3: Run the GUT tests in headless mode
+      - name: Run GUT tests
+        run: godot --headless -s addons/gut/gut_cmdln.gd -glog=1 -gexit
+
+      # Setp 4: Build Linux export
+      - name: Build linux config
+        run: |
+          mkdir -v -p build/linux
+          godot --headless -v --export-release "mac" build/mac/${EXPORT_NAME}-mac.zip || true
+
+      # Step 5: Publish the build to itch.io
+      - name: Publish to itch.io
+        run: |
+          butler -v
+          butler login
+          butler push build/mac ${ITCH_IO_GAME}:mac
