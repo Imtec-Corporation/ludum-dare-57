@@ -1,0 +1,28 @@
+name: GUT Test Suite
+
+on:
+  push:
+    branches:
+      - master  # Trigger on push to the master branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu runner
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Godot
+      - name: Set up Godot
+        uses: firebelley/setup-godot@v1.0.3
+        with:
+          version: '4.4'
+
+      # Step 3: Install dependencies (if necessary)
+      # Add any steps here to install additional dependencies (e.g., Godot plugins, etc.)
+      
+      # Step 4: Run the GUT tests in headless mode
+      - name: Run GUT tests
+        run: godot --headless -s addons/gut/gut_cmdln.gd -glog=1 -gexit
