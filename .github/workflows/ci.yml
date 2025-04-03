@@ -29,7 +29,8 @@ jobs:
         run: |
           mkdir -v -p ~/.config/
           mv /root/.config/godot ~/.config/godot
-          godot --headless --download-export-templates --quit
+          mkdir -p ~/.local/share/godot
+          mv /root/.local/share/godot/templates ~/.local/share/godot/export_templates
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
@@ -64,7 +65,8 @@ jobs:
         run: |
           mkdir -v -p ~/.config/
           mv /root/.config/godot ~/.config/godot
-          godot --headless --download-export-templates --quit
+          mkdir -p ~/.local/share/godot
+          mv /root/.local/share/godot/templates ~/.local/share/godot/export_templates
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
@@ -99,7 +101,8 @@ jobs:
         run: |
           mkdir -v -p ~/.config/
           mv /root/.config/godot ~/.config/godot
-          godot --headless --download-export-templates --quit
+          mkdir -p ~/.local/share/godot
+          mv /root/.local/share/godot/templates ~/.local/share/godot/export_templates
 
       # Step 3: Run the GUT tests in headless mode
       - name: Run GUT tests
