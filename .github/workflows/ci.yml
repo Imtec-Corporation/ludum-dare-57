@@ -9,7 +9,7 @@ env:
   GODOT_VERSION: 4.3
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest  # Use the latest Ubuntu runner
     container:
       image: barichello/godot-ci:4.3
