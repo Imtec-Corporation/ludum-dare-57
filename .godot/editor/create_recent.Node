@@ -1,3 +1,12 @@
-Label
 Node2D
+CollisionShape2D
+Sprite2D
+CharacterBody2D
 ColorRect
+Parallax2D
+ParallaxLayer
+ParallaxBackground
+Camera2D
+TileMapLayer
+TileMap
+Label
