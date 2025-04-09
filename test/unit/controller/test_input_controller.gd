@@ -47,3 +47,9 @@ func test_press_interact():
 	assert_true(controller.is_interact_pressed())
 	mock.action_up("interact")
 	assert_false(controller.is_interact_pressed())
+	
+func test_attack_should_not_repeat_when_hold_pressed():
+	mock.action_down("attack")
+	assert_true(controller.is_attack_pressed())
+	OS.delay_msec(200)
+	assert_false(controller.is_attack_pressed(), "Attack should not be accepted when hold")

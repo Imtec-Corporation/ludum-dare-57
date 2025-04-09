@@ -3,7 +3,7 @@
 PROJECT_PATH="$PWD"
 SRC_PATH="$PROJECT_PATH/src"
 TEST_PATH="$PROJECT_PATH/test"
-TEST_COMMAND="godot --headless -d -s --path \"$PROJECT_PATH\" addons/gut/gut_cmdln.gd -glog=1 -gexit"
+TEST_COMMAND="godot --headless -s --path \"$PROJECT_PATH\" addons/gut/gut_cmdln.gd -glog=1 -gexit"
 
 echo "Watching for file changes in: $SRC_PATH and $TEST_PATH"
 
