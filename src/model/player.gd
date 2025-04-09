@@ -40,6 +40,19 @@ func change_state(new_state: PlayerState.State) -> void:
 	if new_state == PlayerState.State.WALKING or new_state == PlayerState.State.JUMPING:
 		if _state != PlayerState.State.IDLE and _state != PlayerState.State.WALKING:
 			return
+	
+	if new_state == PlayerState.State.ATTACKING and (
+		_state != PlayerState.State.IDLE and
+		_state != PlayerState.State.WALKING and 
+		_state != PlayerState.State.JUMPING
+		):
+			return
+			
+	if new_state == PlayerState.State.INTERACTING and _state != PlayerState.State.IDLE:
+		return
+		
+	if new_state == PlayerState.State.IDLE and _state != PlayerState.State.WALKING:
+		return
 	_state = new_state
 	
 func get_health() -> int:

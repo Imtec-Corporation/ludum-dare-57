@@ -78,3 +78,25 @@ func test_player_change_state_to_jump():
 	player._state = PlayerState.State.ATTACKING
 	player.change_state(PlayerState.State.JUMPING)
 	assert_eq(player.get_state(), PlayerState.State.ATTACKING, "Jump only allowed when walking or idle")
+	
+func test_player_change_state_to_attack():
+	player.change_state(PlayerState.State.ATTACKING)
+	assert_eq(player.get_state(), PlayerState.State.ATTACKING)
+	player._state = PlayerState.State.DAMAGED
+	player.change_state(PlayerState.State.ATTACKING)
+	assert_eq(player.get_state(), PlayerState.State.DAMAGED, "Player should only attack when idle, walking or jumping")
+	
+func test_player_change_state_to_interact():
+	player.change_state(PlayerState.State.INTERACTING)
+	assert_eq(player.get_state(), PlayerState.State.INTERACTING)
+	player._state = PlayerState.State.WALKING
+	player.change_state(PlayerState.State.INTERACTING)
+	assert_eq(player.get_state(), PlayerState.State.WALKING, "Player should only interact while IDLE")
+	
+func test_player_change_state_to_idle():
+	player.change_state(PlayerState.State.WALKING)
+	player.change_state(PlayerState.State.IDLE)
+	assert_eq(player.get_state(), PlayerState.State.IDLE)
+	player.change_state(PlayerState.State.JUMPING)
+	player.change_state(PlayerState.State.IDLE)
+	assert_eq(player.get_state(), PlayerState.State.JUMPING, "Player should only go idle when walking")
