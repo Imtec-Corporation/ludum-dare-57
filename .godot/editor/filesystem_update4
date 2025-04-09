@@ -1,5 +1,0 @@
-res://scenes/prefabs/player.tscn
-res://test/unit/controller/test_input_controller.gd
-res://src/controller/input_controller.gd
-res://scenes/title.tscn
-res://scenes/stages/1.tscn
