@@ -19,7 +19,9 @@ sources/0 = SubResource("TileSetAtlasSource_2avlp")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rsmvq"]
 shader = ExtResource("4_rsmvq")
 shader_parameter/DarknessColor = Vector3(0, 0, 0)
+shader_parameter/Size = 0.111
 shader_parameter/LightRadius = 0.095
+shader_parameter/Shine = 5.0
 
 [node name="Stage1" type="Node2D"]
 
@@ -43,7 +45,7 @@ offset_left = -1349.0
 offset_top = -712.0
 offset_right = 1885.0
 offset_bottom = 984.0
-color = Color(0, 0.234939, 0.426415, 1)
+color = Color(0, 0.235294, 0.427451, 1)
 
 [node name="Characters" type="Node2D" parent="."]
 
@@ -59,8 +61,8 @@ material = SubResource("ShaderMaterial_rsmvq")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
-offset_right = 4.0
+offset_left = 2.0
+offset_right = 2.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
