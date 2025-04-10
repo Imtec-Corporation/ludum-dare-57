@@ -104,6 +104,9 @@ func test_player_change_state_to_idle():
 	player.change_state(PlayerState.State.JUMPING)
 	player.change_state(PlayerState.State.IDLE)
 	assert_eq(player.get_state(), PlayerState.State.JUMPING, "Player should only go idle when walking")
+	player._state = PlayerState.State.ATTACKING
+	player.change_state(PlayerState.State.IDLE)
+	assert_eq(player.get_state(), PlayerState.State.IDLE, "Player should change to idle after attack")
 	
 func test_landing():
 	player.change_state(PlayerState.State.JUMPING)

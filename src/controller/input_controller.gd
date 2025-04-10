@@ -18,7 +18,7 @@ func is_attack_pressed() -> bool:
 	if Input.is_action_pressed("attack") and _canAttack:
 		_canAttack = false
 		return true
-	elif not Input.is_action_pressed("attack"):
+	elif not Input.is_action_pressed("attack") and not _canAttack:
 		_canAttack = true
 	return false
 	

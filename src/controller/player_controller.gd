@@ -7,6 +7,9 @@ class_name PlayerController extends CharacterBody2D
 @export var maxSpeed: float = 2000.0
 @export var jumpForce: float = 15000.0
 
+@onready var _animator: AnimationPlayer = $gfx/AnimationPlayer
+@onready var _sprite: Sprite2D = $gfx
+
 var _model: Player
 var _velocity: Vector2
 var _jumpStarted: bool
@@ -16,8 +19,19 @@ func _init() -> void:
 	_velocity = Vector2.ZERO
 	_jumpStarted = false
 	
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_model.process_input()
+	
+	_sprite.flip_h = _model.get_direction() == Direction.Values.LEFT
+	
+	# Set animations
+	match _model.get_state():
+		PlayerState.State.IDLE:
+			play_animation("idle")
+		PlayerState.State.WALKING:
+			play_animation("walking")
+		PlayerState.State.ATTACKING:
+			play_animation("attack")
 	
 func _physics_process(delta: float) -> void:
 	_velocity = velocity
@@ -44,3 +58,11 @@ func _physics_process(delta: float) -> void:
 		
 	velocity = velocity.lerp(_velocity, 100 * delta)
 	move_and_slide()
+	
+func play_animation(animation: String) -> void:
+	if animation != _animator.current_animation:
+		_animator.play(animation)
+		
+func end_attack() -> void:
+	print_debug("Finishing attack")
+	_model.change_state(PlayerState.State.IDLE)

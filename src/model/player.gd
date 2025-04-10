@@ -50,7 +50,7 @@ func change_state(new_state: PlayerState.State) -> void:
 	if new_state == PlayerState.State.INTERACTING and _state != PlayerState.State.IDLE:
 		return
 		
-	if new_state == PlayerState.State.IDLE and _state != PlayerState.State.WALKING:
+	if new_state == PlayerState.State.IDLE and _state != PlayerState.State.WALKING and _state != PlayerState.State.ATTACKING:
 		return
 	_state = new_state
 	

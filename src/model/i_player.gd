@@ -20,12 +20,12 @@ func get_direction() -> Direction.Values:
 	push_error("This is an interface method")
 	return Direction.Values
 	
-func change_state(new_state: PlayerState.State) -> void:
+func change_state(_new_state: PlayerState.State) -> void:
 	push_error("This is an interface method")
 	
 func get_health() -> int:
 	push_error("This is an interface method")
 	return -100
 	
-func take_damage(amount: int) -> void:
+func take_damage(_amount: int) -> void:
 	push_error("This is an interface method")
