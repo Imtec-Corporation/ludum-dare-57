@@ -10,6 +10,10 @@ func before_all():
 func after_each():
 	mock.release_all()
 	mock.clear()
+	
+func after_all():
+	controller = null
+	mock = null
 
 func test_all_buttons_should_be_released():
 	assert_false(controller.is_left_pressed())

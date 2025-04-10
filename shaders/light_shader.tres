@@ -1,0 +1,115 @@
+[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://dj4jgejboxor1"]
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_3k663"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+operator = 1
+
+[sub_resource type="VisualShaderNodeDotProduct" id="VisualShaderNodeDotProduct_vb70n"]
+
+[sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_3k663"]
+operator = 3
+
+[sub_resource type="VisualShaderNodeVec3Parameter" id="VisualShaderNodeVec3Parameter_3k663"]
+parameter_name = "DarknessColor"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_3k663"]
+input_name = "screen_uv"
+
+[sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_3k663"]
+parameter_name = "ViewportSize"
+default_value_enabled = true
+default_value = Vector2(1158, 648)
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_3k663"]
+parameter_name = "LightRadius"
+default_value_enabled = true
+default_value = 10.0
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_vb70n"]
+parameter_name = "LightFalloff"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_rqgdg"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(0, 0)]
+op_type = 0
+operator = 3
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_byp5r"]
+
+[sub_resource type="VisualShaderNodeVec2Constant" id="VisualShaderNodeVec2Constant_fw3st"]
+constant = Vector2(0.5, 0.5)
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform vec3 DarknessColor = vec3(0.000000, 0.000000, 0.000000);
+uniform float LightRadius = 10.0;
+
+
+
+void fragment() {
+// Vector3Parameter:2
+	vec3 n_out2p0 = DarknessColor;
+
+
+// Input:3
+	vec2 n_out3p0 = SCREEN_UV;
+
+
+// Vector2Constant:9
+	vec2 n_out9p0 = vec2(0.500000, 0.500000);
+
+
+// VectorOp:10
+	vec2 n_out10p0 = n_out3p0 - n_out9p0;
+
+
+// DotProduct:11
+	float n_out11p0 = dot(vec3(n_out10p0, 0.0), vec3(n_out10p0, 0.0));
+
+
+// FloatParameter:5
+	float n_out5p0 = LightRadius;
+
+
+// FloatOp:12
+	float n_out12p0 = n_out11p0 / n_out5p0;
+
+
+// Output:0
+	COLOR.rgb = n_out2p0;
+	COLOR.a = n_out12p0;
+
+
+}
+"
+graph_offset = Vector2(-200.907, 99.0642)
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(600, 360)
+nodes/fragment/2/node = SubResource("VisualShaderNodeVec3Parameter_3k663")
+nodes/fragment/2/position = Vector2(200, 120)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_3k663")
+nodes/fragment/3/position = Vector2(-100, 340)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVec2Parameter_3k663")
+nodes/fragment/4/position = Vector2(-80, 1620)
+nodes/fragment/5/node = SubResource("VisualShaderNodeFloatParameter_3k663")
+nodes/fragment/5/position = Vector2(120, 660)
+nodes/fragment/6/node = SubResource("VisualShaderNodeFloatParameter_vb70n")
+nodes/fragment/6/position = Vector2(0, 920)
+nodes/fragment/7/node = SubResource("VisualShaderNodeVectorOp_rqgdg")
+nodes/fragment/7/position = Vector2(180, 1360)
+nodes/fragment/8/node = SubResource("VisualShaderNodeFloatConstant_byp5r")
+nodes/fragment/8/position = Vector2(-60, 1360)
+nodes/fragment/9/node = SubResource("VisualShaderNodeVec2Constant_fw3st")
+nodes/fragment/9/position = Vector2(-80, 700)
+nodes/fragment/10/node = SubResource("VisualShaderNodeVectorOp_3k663")
+nodes/fragment/10/position = Vector2(-40, 440)
+nodes/fragment/11/node = SubResource("VisualShaderNodeDotProduct_vb70n")
+nodes/fragment/11/position = Vector2(160, 500)
+nodes/fragment/12/node = SubResource("VisualShaderNodeFloatOp_3k663")
+nodes/fragment/12/position = Vector2(380, 520)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0, 8, 0, 7, 0, 4, 0, 7, 1, 3, 0, 10, 0, 9, 0, 10, 1, 10, 0, 11, 0, 10, 0, 11, 1, 11, 0, 12, 0, 5, 0, 12, 1, 12, 0, 0, 1)

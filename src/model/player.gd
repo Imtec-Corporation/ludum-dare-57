@@ -1,5 +1,4 @@
-class_name Player
-extends IPlayer
+class_name Player extends IPlayer
 
 var _state: PlayerState.State
 var _direction: Direction.Values
@@ -65,3 +64,6 @@ func take_damage(amount: int) -> void:
 		change_state(PlayerState.State.DEAD)
 	else:
 		change_state(PlayerState.State.DAMAGED)
+		
+func land() -> void:
+	_state = PlayerState.State.IDLE

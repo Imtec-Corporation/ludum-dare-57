@@ -13,6 +13,10 @@ func after_each():
 	input.release_all()
 	input.clear()
 	
+func after_all():
+	input = null
+	player = null
+	
 func test_player_should_have_full_health():
 	assert_eq(player.get_health(), 100)
 
@@ -100,3 +104,8 @@ func test_player_change_state_to_idle():
 	player.change_state(PlayerState.State.JUMPING)
 	player.change_state(PlayerState.State.IDLE)
 	assert_eq(player.get_state(), PlayerState.State.JUMPING, "Player should only go idle when walking")
+	
+func test_landing():
+	player.change_state(PlayerState.State.JUMPING)
+	player.land()
+	assert_eq(player.get_state(), PlayerState.State.IDLE)

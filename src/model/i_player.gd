@@ -9,6 +9,9 @@ func walk() -> void:
 func jump() -> void:
 	push_error("This is an interface method")
 	
+func land() -> void:
+	push_error("This is an interface method")
+	
 func get_state() -> PlayerState.State:
 	push_error("This is an interface method")
 	return PlayerState.State
