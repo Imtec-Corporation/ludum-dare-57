@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbiqrayaeevbj"]
+
+[ext_resource type="Script" uid="uid://dy3jftcd5ik2a" path="res://src/controller/enemy_controller.gd" id="1_vyi2f"]
+[ext_resource type="Texture2D" uid="uid://e2fexy60ykxi" path="res://gfx/enemy_placeholder.png" id="2_jvnon"]
+
+[sub_resource type="Animation" id="Animation_vyi2f"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_jvnon"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l0e1o"]
+_data = {
+&"RESET": SubResource("Animation_jvnon"),
+&"idle": SubResource("Animation_vyi2f")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vyi2f"]
+size = Vector2(21, 50)
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_vyi2f")
+lightRadius = 200.0
+
+[node name="gfx" type="Sprite2D" parent="."]
+texture = ExtResource("2_jvnon")
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="gfx"]
+libraries = {
+&"": SubResource("AnimationLibrary_l0e1o")
+}
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_vyi2f")
