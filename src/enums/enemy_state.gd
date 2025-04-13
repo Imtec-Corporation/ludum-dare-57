@@ -6,5 +6,6 @@ enum State {
 	CHASE,
 	JUMP,
 	ATTACK,
+	DAMAGED,
 	DEAD
 }
