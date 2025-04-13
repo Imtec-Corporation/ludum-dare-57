@@ -24,3 +24,6 @@ func is_attack_pressed() -> bool:
 	
 func is_interact_pressed() -> bool:
 	return Input.is_action_pressed("interact")
+	
+func is_illuminate_pressed() -> bool:
+	return Input.is_action_pressed("illuminate")

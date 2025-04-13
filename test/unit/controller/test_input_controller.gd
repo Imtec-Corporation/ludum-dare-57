@@ -21,6 +21,7 @@ func test_all_buttons_should_be_released():
 	assert_false(controller.is_jump_pressed())
 	assert_false(controller.is_attack_pressed())
 	assert_false(controller.is_interact_pressed())
+	assert_false(controller.is_illuminate_pressed())
 
 func test_press_left():
 	mock.action_down("left")
@@ -57,3 +58,9 @@ func test_attack_should_not_repeat_when_hold_pressed():
 	assert_true(controller.is_attack_pressed())
 	OS.delay_msec(200)
 	assert_false(controller.is_attack_pressed(), "Attack should not be accepted when hold")
+	
+func test_press_illuminate():
+	mock.action_down("illuminate")
+	assert_true(controller.is_illuminate_pressed())
+	mock.action_up("illuminate")
+	assert_false(controller.is_illuminate_pressed())
