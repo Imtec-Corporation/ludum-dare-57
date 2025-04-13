@@ -16,6 +16,7 @@ var leftTier: bool = false
 var rightTier: bool = false
 var landed: bool = false
 var beingDamaged: bool = false
+var attackFinished: bool = false
 
 func _init(health: int, attacks: bool) -> void:
 	_health = health
@@ -56,6 +57,9 @@ func _damage_ended() -> bool:
 func _empty_health() -> bool:
 	return _health <= 0 and not beingDamaged
 	
+func _attack_finished() -> bool:
+	return attackFinished
+	
 func _setup_states() -> void:
 	# Define transitions to patrol
 	var patrolTransition = EnemyStateTransition.new(EnemyState.State.PATROL, self._is_active)
@@ -76,7 +80,8 @@ func _setup_states() -> void:
 	
 	# Define transitions to idle
 	var damageEndTransition = EnemyStateTransition.new(EnemyState.State.IDLE, self._damage_ended)
-	
+	var attackEndTransition = EnemyStateTransition.new(EnemyState.State.IDLE, self._attack_finished)
+		
 	# Set transitions from idle
 	_fsm.add_transition(EnemyState.State.IDLE, damageTransition)
 	_fsm.add_transition(EnemyState.State.IDLE, patrolTransition)
@@ -96,11 +101,30 @@ func _setup_states() -> void:
 	_fsm.add_transition(EnemyState.State.DAMAGED, deadTransition)
 	_fsm.add_transition(EnemyState.State.DAMAGED, damageEndTransition)
 	
+	# Set transitions from attack
+	_fsm.add_transition(EnemyState.State.ATTACK, attackEndTransition)
+	
 func update() -> void:
 	_fsm.tick()
+	match get_state():
+		EnemyState.State.PATROL:
+			if ((_direction == Direction.Values.RIGHT and rightWall) or
+				(_direction == Direction.Values.LEFT and leftWall) or
+				(_direction == Direction.Values.RIGHT and rightFall) or
+				(_direction == Direction.Values.LEFT and leftFall)):
+				change_direction()
+	
+func change_direction() -> void:
+	if _direction == Direction.Values.RIGHT:
+		_direction = Direction.Values.LEFT
+	else:
+		_direction = Direction.Values.RIGHT
 	
 func get_health() -> int:
 	return _health
 	
 func get_state() -> EnemyState.State:
 	return _fsm.get_state()
+	
+func get_direction() -> Direction.Values:
+	return _direction

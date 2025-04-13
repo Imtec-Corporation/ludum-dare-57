@@ -91,3 +91,44 @@ func test_should_die_after_damage_with_no_health():
 	enemy._fsm._state = EnemyState.State.DAMAGED
 	enemy.update()
 	assert_eq(enemy.get_state(), EnemyState.State.DEAD)
+	
+func test_should_return_to_idle_after_attack():
+	var enemy = Enemy.new(1, true)
+	enemy.attackFinished = true
+	enemy._fsm._state = EnemyState.State.ATTACK
+	enemy.update()
+	assert_eq(enemy.get_state(), EnemyState.State.IDLE)
+	
+func test_should_turn_left_when_detecting_wall_at_right():
+	var enemy = Enemy.new(1, true)
+	enemy.activate()
+	enemy.update()
+	enemy.rightWall = true
+	enemy.update()
+	assert_eq(enemy.get_direction(), Direction.Values.LEFT)
+	
+func test_should_turn_right_when_detecting_wall_at_left():
+	var enemy = Enemy.new(1, true)
+	enemy._direction = Direction.Values.LEFT
+	enemy.activate()
+	enemy.update()
+	enemy.leftWall = true
+	enemy.update()
+	assert_eq(enemy.get_direction(), Direction.Values.RIGHT)
+	
+func test_should_turn_left_when_detecting_fall_at_left():
+	var enemy = Enemy.new(1, true)
+	enemy.activate()
+	enemy.update()
+	enemy.rightFall = true
+	enemy.update()
+	assert_eq(enemy.get_direction(), Direction.Values.LEFT)
+	
+func test_should_turn_right_when_detecting_fall_at_right():
+	var enemy = Enemy.new(1, true)
+	enemy.activate()
+	enemy._direction = Direction.Values.LEFT
+	enemy.update()
+	enemy.leftFall = true
+	enemy.update()
+	assert_eq(enemy.get_direction(), Direction.Values.RIGHT)
