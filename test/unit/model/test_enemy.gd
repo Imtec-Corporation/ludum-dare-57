@@ -54,16 +54,34 @@ func test_should_jump_left_when_left_tier_found():
 	enemy.activate()
 	enemy.update()
 	enemy.leftTier = true
+	enemy.leftWall = true
 	enemy.update()
 	assert_eq(enemy.get_state(), EnemyState.State.JUMP)
+	
+func test_should_not_jump_left_when_left_tier_incomplete():
+	var enemy = Enemy.new(1, 1, true)
+	enemy.activate()
+	enemy.update()
+	enemy.leftTier = true
+	enemy.update()
+	assert_eq(enemy.get_state(), EnemyState.State.PATROL)
 	
 func test_should_jump_right_when_right_tier_found():
 	var enemy = Enemy.new(1, 1, true)
 	enemy.activate()
 	enemy.update()
 	enemy.rightTier = true
+	enemy.rightWall = true
 	enemy.update()
 	assert_eq(enemy.get_state(), EnemyState.State.JUMP)
+	
+func test_should_not_jump_left_when_right_tier_incomplete():
+	var enemy = Enemy.new(1, 1, true)
+	enemy.activate()
+	enemy.update()
+	enemy.rightTier = true
+	enemy.update()
+	assert_eq(enemy.get_state(), EnemyState.State.PATROL)
 	
 func test_should_change_to_patrol_when_landed_after_jump():
 	var enemy = Enemy.new(1 ,1, true)
@@ -104,6 +122,7 @@ func test_should_turn_left_when_detecting_wall_at_right():
 	enemy.activate()
 	enemy.update()
 	enemy.rightWall = true
+	enemy.rightTier = false
 	enemy.update()
 	assert_eq(enemy.get_direction(), Direction.Values.LEFT)
 	
@@ -113,6 +132,7 @@ func test_should_turn_right_when_detecting_wall_at_left():
 	enemy.activate()
 	enemy.update()
 	enemy.leftWall = true
+	enemy.leftTier = false
 	enemy.update()
 	assert_eq(enemy.get_direction(), Direction.Values.RIGHT)
 	

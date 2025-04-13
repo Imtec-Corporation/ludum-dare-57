@@ -13,8 +13,8 @@ var leftFall: bool = false
 var rightFall: bool = false
 var leftWall: bool = false
 var rightWall: bool = false
-var leftTier: bool = false
-var rightTier: bool = false
+var leftTier: bool = true
+var rightTier: bool = true
 var landed: bool = false
 var beingDamaged: bool = false
 var attackFinished: bool = false
@@ -42,10 +42,10 @@ func _target_in_range() -> bool:
 	return targetInRange and _attacks
 	
 func _should_jump_left() -> bool:
-	return leftTier
+	return leftTier and leftWall
 	
 func _should_jump_right() -> bool:
-	return rightTier
+	return rightTier and rightWall
 	
 func _is_landed() -> bool:
 	return landed
