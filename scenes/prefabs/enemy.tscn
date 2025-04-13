@@ -45,7 +45,6 @@ size = Vector2(21, 50)
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_vyi2f")
-lightRadius = 200.0
 
 [node name="gfx" type="Sprite2D" parent="."]
 texture = ExtResource("2_jvnon")

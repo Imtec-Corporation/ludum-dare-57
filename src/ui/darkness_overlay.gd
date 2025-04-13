@@ -25,7 +25,6 @@ func addLightSource(source: LightSource) -> void:
 			print_debug("Light source with UID " + str(source.uid) + " already exists.  Not adding.")
 			return
 			
-	print_debug("light added")
 	_lightSources.append(source)
 	
 func updateLightSource(source: LightSource) -> void:

@@ -59,6 +59,26 @@ func test_player_press_interact_should_change_state_to_interact():
 	player.process_input()
 	assert_eq(player.get_state(), PlayerState.State.INTERACTING)
 	
+func test_player_press_illuminate_should_change_state_to_idle_light():
+	input.action_down("illuminate")
+	player.process_input()
+	assert_eq(player.get_state(), PlayerState.State.IDLE_LIGHT)
+	input.action_up("illuminate")
+	player.process_input()
+	assert_eq(player.get_state(), PlayerState.State.IDLE)
+	
+func test_player_press_illuminate_while_walking_should_change_to_walking_light():
+	input.action_down("right")
+	input.action_down("illuminate")
+	player.process_input()
+	assert_eq(player.get_state(), PlayerState.State.WALKING_LIGHT)
+	
+func test_player_walk_while_illuminating_should_change_to_walking_light():
+	player._state = PlayerState.State.IDLE_LIGHT
+	input.action_down("right")
+	player.process_input()
+	assert_eq(player.get_state(), PlayerState.State.WALKING_LIGHT)
+	
 func test_player_take_damage_should_subtract_health_and_change_state():
 	player.take_damage(20)
 	assert_eq(player.get_health(), 80)
@@ -112,3 +132,15 @@ func test_landing():
 	player.change_state(PlayerState.State.JUMPING)
 	player.land()
 	assert_eq(player.get_state(), PlayerState.State.IDLE)
+	
+func player_should_change_to_idle_after_illuminate():
+	player.change_state(PlayerState.State.IDLE_LIGHT)
+	assert_eq(player.get_state(), PlayerState.State.IDLE_LIGHT)
+	player.change_state(PlayerState.State.IDLE)
+	assert_eq(player.get_state(), PlayerState.State.IDLE)
+	
+func player_should_change_to_walking_after_illuminate():
+	player.change_state(PlayerState.State.WALKING_LIGHT)
+	assert_eq(player.get_state(), PlayerState.State.WALKING_LIGHT)
+	player.change_state(PlayerState.State.WALKING)
+	assert_eq(player.get_state(), PlayerState.State.WALKING)

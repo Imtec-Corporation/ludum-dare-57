@@ -23,7 +23,7 @@ func process_input() -> void:
 	elif _input.is_left_pressed():
 		change_state(PlayerState.State.WALKING)
 		_direction = Direction.Values.LEFT
-	else:
+	elif not _input.is_illuminate_pressed():
 		change_state(PlayerState.State.IDLE)
 		
 	if _input.is_jump_pressed():
@@ -35,9 +35,24 @@ func process_input() -> void:
 	if _input.is_interact_pressed():
 		change_state(PlayerState.State.INTERACTING)
 		
+	if _input.is_illuminate_pressed():
+		change_state(PlayerState.State.IDLE_LIGHT)
+	elif _state == PlayerState.State.IDLE_LIGHT:
+		change_state(PlayerState.State.IDLE)
+		
 func change_state(new_state: PlayerState.State) -> void:
+	if ((_state == PlayerState.State.WALKING and new_state == PlayerState.State.IDLE_LIGHT) or 
+	(_state == PlayerState.State.IDLE_LIGHT and new_state == PlayerState.State.WALKING)
+	):
+		_state = PlayerState.State.WALKING_LIGHT
+		return
+		
 	if new_state == PlayerState.State.WALKING or new_state == PlayerState.State.JUMPING:
-		if _state != PlayerState.State.IDLE and _state != PlayerState.State.WALKING:
+		if (
+			_state != PlayerState.State.IDLE and 
+			_state != PlayerState.State.WALKING and 
+			_state != PlayerState.State.IDLE_LIGHT and 
+			_state != PlayerState.State.WALKING_LIGHT):
 			return
 	
 	if new_state == PlayerState.State.ATTACKING and (
@@ -50,8 +65,13 @@ func change_state(new_state: PlayerState.State) -> void:
 	if new_state == PlayerState.State.INTERACTING and _state != PlayerState.State.IDLE:
 		return
 		
-	if new_state == PlayerState.State.IDLE and _state != PlayerState.State.WALKING and _state != PlayerState.State.ATTACKING:
+	if (
+		new_state == PlayerState.State.IDLE and
+		_state != PlayerState.State.WALKING and 
+		_state != PlayerState.State.ATTACKING and
+		_state != PlayerState.State.IDLE_LIGHT):
 		return
+		
 	_state = new_state
 	
 func get_health() -> int:

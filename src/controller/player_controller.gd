@@ -34,6 +34,10 @@ func _process(_delta: float) -> void:
 	
 	# Update light source position
 	_lightSource.position = global_position
+	if is_illuminating():
+		_lightSource.radius = lightRadius * 2
+	else:
+		_lightSource.radius = lightRadius
 	LightEventBus.lightUpdated(_lightSource)
 	
 	# Set animations
@@ -44,6 +48,10 @@ func _process(_delta: float) -> void:
 			play_animation("walking")
 		PlayerState.State.ATTACKING:
 			play_animation("attack")
+		PlayerState.State.IDLE_LIGHT:
+			play_animation("idle_light")
+		PlayerState.State.WALKING_LIGHT:
+			play_animation("walking_light")
 	
 func _physics_process(delta: float) -> void:
 	_velocity = velocity
@@ -53,22 +61,26 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor() and _model.get_state() == PlayerState.State.JUMPING:
 		if ! _jumpStarted:
 			_velocity.y = -jumpForce * delta
-			_velocity.x *= 1.5
+			_velocity.x *= 1.1
 			_jumpStarted = true
 		else:
 			_model.land()
 			_jumpStarted = false 
 		
-	if _model.get_state() == PlayerState.State.WALKING:
+	if is_walking():
 		if _model.get_direction() == Direction.Values.RIGHT:
 			_velocity.x += speed * delta
 		else:
 			_velocity.x -= speed * delta
 			
-	if _model.get_state() != PlayerState.State.WALKING and _model.get_state() != PlayerState.State.JUMPING:
+	if not is_walking() and _model.get_state() != PlayerState.State.JUMPING:
 		_velocity.x = lerpf(velocity.x, 0, delta)
 		
 	velocity = velocity.lerp(_velocity, 100 * delta)
+	
+	if is_illuminating():
+		velocity.x /= 1.2
+	
 	move_and_slide()
 	
 func play_animation(animation: String) -> void:
@@ -76,5 +88,12 @@ func play_animation(animation: String) -> void:
 		_animator.play(animation)
 		
 func end_attack() -> void:
-	print_debug("Finishing attack")
 	_model.change_state(PlayerState.State.IDLE)
+	
+func is_illuminating() -> bool:
+	var state = _model.get_state()
+	return state == PlayerState.State.IDLE_LIGHT or state == PlayerState.State.WALKING_LIGHT
+	
+func is_walking() -> bool:
+	var state = _model.get_state()
+	return state == PlayerState.State.WALKING or state == PlayerState.State.WALKING_LIGHT

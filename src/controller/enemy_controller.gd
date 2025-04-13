@@ -5,6 +5,11 @@ class_name EnemyController extends CharacterBody2D
 var _lightSource: LightSource
 var _uid: String
 
+func _init() -> void:
+	var f = func():
+		print_debug("Predicate success")
+	
+	
 func _ready() -> void:
 	_lightSource = LightSource.new(position, lightRadius, _uid)
 	LightEventBus.lightCreated(_lightSource)
