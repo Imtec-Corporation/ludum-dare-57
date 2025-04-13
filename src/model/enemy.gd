@@ -1,6 +1,7 @@
 class_name Enemy
 
 var _health: int
+var _attackDamage: int
 var _fsm: EnemyFSM
 var _attacks: bool
 var _direction: Direction.Values
@@ -18,8 +19,9 @@ var landed: bool = false
 var beingDamaged: bool = false
 var attackFinished: bool = false
 
-func _init(health: int, attacks: bool) -> void:
+func _init(health: int, attackDamage: int, attacks: bool) -> void:
 	_health = health
+	_attackDamage = attackDamage
 	_fsm = EnemyFSM.new()
 	_attacks = attacks
 	_direction = Direction.Values.RIGHT
@@ -128,3 +130,9 @@ func get_state() -> EnemyState.State:
 	
 func get_direction() -> Direction.Values:
 	return _direction
+	
+func take_damage(amount: int) -> void:
+	_health -= amount
+	if _health < 0:
+		_health = 0
+	beingDamaged = true
