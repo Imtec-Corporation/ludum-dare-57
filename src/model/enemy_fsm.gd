@@ -1,7 +1,7 @@
 # Enemy Finite State Machine
 class_name EnemyFSM
 
-var _stateMap: Dictionary[EnemyState.State, EnemyStateTransition]
+var _stateMap: Dictionary[EnemyState.State, Array]
 var _state: EnemyState.State
 
 func _init() -> void:
@@ -9,12 +9,15 @@ func _init() -> void:
 	_state = EnemyState.State.IDLE
 	
 func add_transition(state: EnemyState.State, transition: EnemyStateTransition) -> void:
-	_stateMap[state] = transition
+	if not _stateMap.has(state):
+		_stateMap[state] = []
+	_stateMap[state].append(transition)
 	
 func tick() -> void:
-	var transition: EnemyStateTransition = _stateMap[_state]
-	if transition.predicate.call():
-		_state = transition.nextState
+	for transition: EnemyStateTransition in _stateMap[_state]:
+		if transition.predicate.call():
+			_state = transition.nextState
+			return
 	
 func get_state() -> EnemyState.State:
 	return _state
